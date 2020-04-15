@@ -8,16 +8,33 @@ public class GameManager : MonoBehaviour
 
     public static GameManager instance = null;
 
+    Tutorial tutorialSystem;
+
+    [HideInInspector] public bool gameIsOn = false;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else if (instance != null)
         {
             Destroy(gameObject);
         }
+    }
+
+    private void Start()
+    {
+        tutorialSystem = GameManager.instance.GetComponent<Tutorial>();
+    }
+
+    public GameObject introBackground;
+    public void StartGame()
+    {
+        introBackground.SetActive(false);
+        gameIsOn = true;
     }
 
     public void WinGame()
@@ -32,7 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void LoseGame()
     {
-
+        gameIsOn = false;
     }
 
     public void ExitGame()

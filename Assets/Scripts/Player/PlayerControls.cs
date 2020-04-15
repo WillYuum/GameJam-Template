@@ -6,16 +6,29 @@ public class PlayerControls : MonoBehaviour
 {
 
     public int playeSpeed = 10;
+    Rigidbody2D rb;
 
-    // Start is called before the first frame update
+
     void Start()
     {
-        
+        rb = GetComponent<Rigidbody2D>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        HandlePlayerMovement();
+    }
+
+
+    private void HandlePlayerMovement()
+    {
+        float horizontal = Input.GetAxis("Horizontal");
+        float vertical = Input.GetAxis("Vertical");
+
+        Vector2 move = new Vector2(horizontal, vertical);
+
+        Vector2 position = rb.position;
+        position = position + move * playeSpeed * Time.deltaTime;
+        rb.MovePosition(position);
     }
 }
