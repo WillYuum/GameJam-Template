@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public static class UtilityHelper
@@ -10,7 +9,7 @@ public static class UtilityHelper
         T selectedElem = array[index];
         return selectedElem;
     }
-    
+
     public static void ShuffleList<T>(List<T> list)
     {
         for (int i = list.Count - 1; i > 0; i--)
@@ -30,7 +29,7 @@ public static class UtilityHelper
             T tmp = array[i];
             int randIndex = Random.Range(i, array.Length);  //By replacing 'i' with 0, you might get a more randomized array.
             array[i] = array[randIndex];
-            array[randIndex] = tmp;   
+            array[randIndex] = tmp;
         }
     }
 }
