@@ -32,4 +32,15 @@ public static class UtilityHelper
             array[randIndex] = tmp;
         }
     }
+
+    public static GameObject[] GetChildren(GameObject parent)
+    {
+        GameObject[] children = new GameObject[parent.transform.childCount];
+        for (int i = 0; i < parent.transform.childCount; i++)
+        {
+            children[i] = parent.transform.GetChild(i).gameObject;
+        }
+
+        return children;
+    }
 }
