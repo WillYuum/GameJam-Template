@@ -4,17 +4,7 @@ using Utils.GenericSingletons;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-
-    private void Start()
-    {
-    }
-
     public void StartGame()
-    {
-
-    }
-
-    public void WinGame()
     {
 
     }
@@ -22,11 +12,6 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    public void LoseGame()
-    {
-
     }
 
     public void ExitGame()
