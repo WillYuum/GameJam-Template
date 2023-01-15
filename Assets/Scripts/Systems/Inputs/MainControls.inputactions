@@ -1,0 +1,40 @@
+{
+    "name": "MainControls",
+    "maps": [
+        {
+            "name": "PlayerActions",
+            "id": "8458b2d7-1ddb-4854-b720-d4e871bd4f69",
+            "actions": [],
+            "bindings": []
+        },
+        {
+            "name": "TestControls",
+            "id": "79f34880-2038-4cbc-bf7f-7d9ccab302c9",
+            "actions": [
+                {
+                    "name": "PressStart",
+                    "type": "Button",
+                    "id": "695dbcee-8b96-4524-a22f-118be246c813",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "117d0789-a54e-4cb4-b4ba-8484d7c66b59",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "PressStart",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
