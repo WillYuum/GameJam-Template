@@ -20,7 +20,6 @@ public class GameLoopManager : MonoBehaviour
         enabled = true;
         LoopIsActive = true;
 
-
         if (OnGameLoopStart != null)
         {
             OnGameLoopStart();
@@ -29,6 +28,8 @@ public class GameLoopManager : MonoBehaviour
 
     public void InvokeLoseGame()
     {
+        if (LoopIsActive == false) return;
+
         enabled = false;
         LoopIsActive = false;
 
