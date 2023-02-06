@@ -1,7 +1,8 @@
 using System;
 using UnityEngine;
+using Utils.GenericSingletons;
 
-public class GameLoopManager : MonoBehaviour
+public class GameLoopManager : MonoBehaviourSingleton<GameLoopManager>
 {
     public event Action OnGameLoopStart;
     public event Action OnLoseGame;
