@@ -59,6 +59,15 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
 
     private void Play(string audioName, List<Audio> audios)
     {
+#if UNITY_EDITOR
+        if (audios == null || audios.Count == 0)
+        {
+            Debug.LogError("audios is null when trying to play: " + audioName);
+            return;
+        }
+#endif
+
+
         Audio audio = audios.Find(x => x.Name == audioName);
 
 #if UNITY_EDITOR
