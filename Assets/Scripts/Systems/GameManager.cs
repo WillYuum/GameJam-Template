@@ -4,12 +4,22 @@ using Utils.GenericSingletons;
 
 public class GameManager : MonoBehaviourSingleton<GameManager>
 {
-    public void StartGame()
-    {
 
+    void Awake()
+    {
+        AudioManager.instance.Load();
     }
 
-    public void RestartGame()
+
+    void Start()
+    {
+        print("GameManager Start");
+
+        GameFlowManager.instance.Load();
+    }
+
+
+    public void ForceRestartScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
