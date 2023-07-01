@@ -6,7 +6,8 @@ namespace GameloopCore
 {
     /*
     *
-    * This is the base class for any class that needs to handle an instance of a gameloop.
+    * A base class for any class that needs to handle an instance of a gameloop.
+    *
     * Example: Add gameloop to a level, add gameloop to multiple scenes
     * When creating an instance of a gameloop, you need to create a class that inherits from this class
     * and implement the abstract methods. 
@@ -25,10 +26,7 @@ namespace GameloopCore
 
         void Update()
         {
-            if (_isActive == false) return;
-
-
-            onUpdate();
+            OnLoopUpdate();
         }
 
         protected override void OnPlay()
@@ -36,9 +34,9 @@ namespace GameloopCore
             print("Started gameloop " + _gameloopName);
         }
 
-        protected override void onUpdate()
+        protected override void OnLoopUpdate()
         {
-            // print("yil3an ayer");
+
         }
 
         protected override void OnToggle(bool toActive)
@@ -66,15 +64,15 @@ namespace GameloopCore
         public void Play()
         {
 #if UNITY_EDITOR
-            if (_isActive == true)
+            if (IsActive == true)
             {
                 Debug.LogError("Gameloop already loaded with name: " + _gameloopName);
                 return;
             }
 #endif
 
-            _isActive = true;
             OnPlay();
+            SetLoopActive(true);
         }
 
 
@@ -89,23 +87,22 @@ namespace GameloopCore
             }
 #endif
 
-            _isActive = false;
             OnEnd();
+            SetLoopActive(false);
         }
 
         public void Toggle(bool toActive)
         {
 #if UNITY_EDITOR
-            if (_isActive == toActive)
+            if (IsActive == toActive)
             {
                 Debug.LogError("Gameloop already " + (toActive ? "active" : "inactive"));
                 return;
             }
 #endif
 
-            _isActive = toActive;
-            enabled = toActive;
             OnToggle(toActive);
+            SetLoopActive(toActive);
         }
     }
 
@@ -115,10 +112,10 @@ namespace GameloopCore
     {
         protected string _gameloopName;
         protected bool _gameloopLoaded = false;
-        protected bool _isActive = false;
+        protected bool IsActive { get; private set; }
 
         protected abstract void OnPlay();
-        protected virtual void onUpdate() { }
+        protected virtual void OnLoopUpdate() { }
         protected abstract void OnEnd();
         protected abstract void OnToggle(bool toActive);
 
@@ -139,6 +136,13 @@ namespace GameloopCore
             _gameloopLoaded = true;
             _gameloopName = gameloopName;
             _gameloopGameObject = gameloopGameObject;
+        }
+
+
+        protected void SetLoopActive(bool toActive)
+        {
+            IsActive = toActive;
+            enabled = toActive;
         }
     }
 
