@@ -5,7 +5,7 @@ using Utils.GenericSingletons;
 namespace SpawnManagerMod
 {
 
-    public class SpawnManager : MonoBehaviourSingleton<SpawnManager>
+    public class PrefabManager : MonoBehaviourSingleton<PrefabManager>
     {
         [SerializeField] private PrefabConfig _enemyPrefab;
     }
