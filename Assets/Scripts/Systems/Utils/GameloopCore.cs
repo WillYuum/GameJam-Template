@@ -48,7 +48,11 @@ namespace GameloopCore
         protected override void OnEnd()
         {
             print("Ended gameloop " + _gameloopName);
+        }
 
+        protected override void OnResetLoopProps()
+        {
+            print("Restarted gameloop " + _gameloopName);
         }
     }
 
@@ -104,6 +108,20 @@ namespace GameloopCore
             OnToggle(toActive);
             SetLoopActive(toActive);
         }
+
+
+        public void ResetLoopProps()
+        {
+#if UNITY_EDITOR
+            if (_gameloopLoaded == false)
+            {
+                Debug.LogError("Gameloop not loaded with name: " + _gameloopName);
+                return;
+            }
+#endif
+
+            OnResetLoopProps();
+        }
     }
 
 
@@ -118,6 +136,7 @@ namespace GameloopCore
         protected virtual void OnLoopUpdate() { }
         protected abstract void OnEnd();
         protected abstract void OnToggle(bool toActive);
+        protected abstract void OnResetLoopProps();
 
         private GameObject _gameloopGameObject;
 

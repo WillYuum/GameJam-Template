@@ -22,4 +22,9 @@ class GameSceneLoop : GameloopBehavior
     {
 
     }
+
+    protected override void OnResetLoopProps()
+    {
+
+    }
 }
