@@ -1,8 +1,7 @@
 {
-    "recommendations":[
-        "unity.unity-debug",
-        "tobiah.unity-tools",
-        "kleber-swf.unity-code-snippets",
-        "yclepticstudios.unity-snippets",
-    ]
+  "recommendations": [
+    "unity.unity-debug",
+    "kleber-swf.unity-code-snippets",
+    "yclepticstudios.unity-snippets"
+  ]
 }
