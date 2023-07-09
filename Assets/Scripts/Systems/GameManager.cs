@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviourSingleton<GameManager>
     {
         print("GameManager Start");
 
-        GameFlowManager.instance.Load();
+        GameFlowManager.instance.SwitchToScene<GameScene>();
     }
 
 

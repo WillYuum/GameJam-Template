@@ -5,7 +5,7 @@ class GameSceneLoop : GameloopBehavior
 {
     protected override void OnPlay()
     {
-
+        print("GameSceneLoop OnPlay");
     }
 
     protected override void OnLoopUpdate()

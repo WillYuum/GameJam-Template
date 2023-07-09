@@ -8,89 +8,36 @@ using GameloopCore;
 
 /*
 *
-* This class is responsible for managing the game flow meaning moving from one scene to another
-* and loading the UI of that scene and whatever else is needed.
+* Responsible for switching between scenes and invoking the appropriate callbacks
+*
 * 
 */
 public class GameFlowManager : MonoBehaviourSingleton<GameFlowManager>
 {
-    private bool _gameFlowLoaded = false;
 
-    public void Load()
-    {
-        if (_gameFlowLoaded == true)
-        {
-            Debug.LogError("GameFlowManager already loaded");
-            return;
-        }
-
-        Debug.Log("Loading GameFlowManager");
-
-        _gameFlowLoaded = true;
+    private GameFlowScene _currentScene;
 
 
-#if UNITY_EDITOR
-        string currentActiveScene = SceneManager.GetActiveScene().name;
-        if (currentActiveScene == "GameScene")
-        {
-            LoadGameScene();
-        }
-#else
-            LoadGameFromStart();
-#endif
-    }
-
-
-
-    private void LoadGameFromStart()
-    {
-        string sceneNameToStartWith = "GameScene"; //Change this to the scene you want to start with
-        SwitchToScene(sceneNameToStartWith, () =>
-        {
-            //Do whatever you need to do after the scene is loaded
-        });
-    }
-
-
-
-    private void LoadGameScene()
-    {
-        SwitchToScene("GameScene", () =>
-        {
-            //Do whatever you need to do after the scene is loaded
-            GameloopBehavior gameSceneloop = GameloopBehavior.Create<GameSceneLoop>("gameSceneLoop");
-            gameSceneloop.Play();
-        });
-
-    }
-
-
-
-    private void SwitchToScene(string sceneName, Action cb = null)
+    public void SwitchToScene<T>() where T : GameFlowScene, new()
     {
 #if UNITY_EDITOR
-        Scene scene = SceneManager.GetSceneByName(sceneName);
-        if (scene.IsValid() == false)
-        {
-            Debug.LogError("Scene " + sceneName + " is not valid");
-            return;
-        }
+        print($"Switching to scene of type: {typeof(T).Name}");
 #endif
 
-
-        void onSceneLoaded(Scene loadedScene, LoadSceneMode mode)
+        if (_currentScene != null)
         {
-            if (loadedScene.name == sceneName)
-            {
-                if (cb != null) cb.Invoke();
-            }
-
-            SceneManager.sceneLoaded -= onSceneLoaded;
+            _currentScene.OnExit();
         }
 
-        SceneManager.sceneLoaded += onSceneLoaded;
-
-        SceneManager.LoadScene(sceneName);
+        _currentScene = new T();
+        _currentScene.OnEnter();
     }
-
 }
+
+
+public abstract class GameFlowScene
+{
+    public abstract void OnEnter();
+    public abstract void OnExit();
+}
+
