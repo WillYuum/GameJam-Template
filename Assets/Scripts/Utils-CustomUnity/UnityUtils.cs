@@ -2,11 +2,11 @@ using UnityEngine.SceneManagement;
 using UnityEngine;
 using System;
 
-namespace CustomUnityUtils
+namespace UnityCustomUtils.SceneManagerUtils
 {
-    public static class UnityUtils
+    public static class SceneManagerUtil
     {
-        public static void SwitchToScene(string sceneName, Action cb = null)
+        public static void SwitchScene(string sceneName, Action cb = null)
         {
 #if UNITY_EDITOR
             Scene scene = SceneManager.GetSceneByName(sceneName);
@@ -30,6 +30,12 @@ namespace CustomUnityUtils
             SceneManager.sceneLoaded += onSceneLoaded;
 
             SceneManager.LoadScene(sceneName);
+        }
+
+
+        public static string GetCurrentLoadedSceneName()
+        {
+            return SceneManager.GetActiveScene().name;
         }
     }
 }

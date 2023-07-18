@@ -1,18 +1,14 @@
-using CustomUnityUtils;
 using GameloopCore;
 
 public class GameScene : GameFlowScene
 {
-    public override void OnEnter()
+    public override void OnEnterScene()
     {
-        UnityUtils.SwitchToScene("GameScene", () =>
-        {
-            LoadGameUI();
-            LoadGameLoop();
-        });
+        LoadGameUI();
+        LoadGameLoop();
     }
 
-    public override void OnExit()
+    public override void OnExitScene()
     {
     }
 
