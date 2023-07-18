@@ -1,10 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
-using Utils.GenericSingletons;
+using UnityCustomUtils.SceneManagerUtils;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using System;
-using GameloopCore;
+using Utils.GenericSingletons;
 
 /*
 *
@@ -21,23 +17,74 @@ public class GameFlowManager : MonoBehaviourSingleton<GameFlowManager>
     public void SwitchToScene<T>() where T : GameFlowScene, new()
     {
 #if UNITY_EDITOR
-        print($"Switching to scene of type: {typeof(T).Name}");
+        Debug.Log($"Switching to scene of type: {typeof(T).Name}");
 #endif
+
+#if UNITY_EDITOR
+        bool switchingToSameScene = _currentScene != null && _currentScene.GetType().Name == typeof(T).Name;
+        if (switchingToSameScene)
+        {
+            Debug.LogError("Tring to Switch to same scene, doing nothing");
+            return;
+        }
+#endif
+
+        System.Type type = typeof(T);
+        string sceneName = type.Name;
 
         if (_currentScene != null)
         {
-            _currentScene.OnExit();
+            _currentScene.OnExitScene();
         }
 
-        _currentScene = new T();
-        _currentScene.OnEnter();
+        SceneManagerUtil.SwitchScene(sceneName, () =>
+        {
+            _currentScene = new T();
+            _currentScene.OnEnterScene();
+        });
+    }
+
+
+    public void SwitchToSceneWithNoGameFlow(string sceneName)
+    {
+#if UNITY_EDITOR
+        Debug.Log($"Switching to scene with no game flow: {sceneName}");
+#endif
+
+
+        if (_currentScene != null)
+        {
+            _currentScene.OnExitScene();
+        }
+
+        SceneManagerUtil.SwitchScene(sceneName, () =>
+        {
+            _currentScene = null;
+        });
+    }
+
+    public void ForceRestartCurrentScene()
+    {
+#if UNITY_EDITOR
+        if (_currentScene == null)
+        {
+            Debug.LogError("Current scene is null, doing nothing");
+            return;
+        }
+#endif
+
+
+        SceneManagerUtil.SwitchScene(SceneManagerUtil.GetCurrentLoadedSceneName(), () =>
+        {
+            _currentScene.OnEnterScene();
+        });
     }
 }
 
 
 public abstract class GameFlowScene
 {
-    public abstract void OnEnter();
-    public abstract void OnExit();
+    public abstract void OnEnterScene();
+    public abstract void OnExitScene();
 }
 
