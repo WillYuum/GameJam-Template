@@ -1,7 +1,7 @@
 {
   "recommendations": [
-    "unity.unity-debug",
     "kleber-swf.unity-code-snippets",
-    "yclepticstudios.unity-snippets"
+    "yclepticstudios.unity-snippets",
+    "visualstudiotoolsforunity.vstuc"
   ]
 }
