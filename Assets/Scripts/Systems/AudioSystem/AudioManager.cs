@@ -23,8 +23,11 @@ public class AudioManager : MonoBehaviourSingleton<AudioManager>
         {
             configs.ForEach(audioConfig =>
            {
-               GameObject spawnedAudioObject = Instantiate(new GameObject(), transform);
-               spawnedAudioObject.name = audioConfig.Name;
+               GameObject spawnedAudioObject = new GameObject
+               {
+                   name = audioConfig.Name,
+                   transform = { parent = transform }
+               };
                AudioSource audioSource = spawnedAudioObject.AddComponent<AudioSource>();
 
 #if UNITY_EDITOR
