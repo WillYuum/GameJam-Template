@@ -2,14 +2,17 @@ using GameloopCore;
 
 public class GameScene : GameFlowScene
 {
-    public override void OnEnterScene()
+    private GameSceneLoop _gameSceneLoop;
+
+    public override void OnEnter()
     {
         LoadGameUI();
         LoadGameLoop();
     }
 
-    public override void OnExitScene()
+    public override void OnExit()
     {
+        _gameSceneLoop.End();
     }
 
 
@@ -21,7 +24,7 @@ public class GameScene : GameFlowScene
 
     private void LoadGameLoop()
     {
-        GameloopBehavior gameSceneLoop = GameloopBehavior.Create<GameSceneLoop>("gameSceneLoop");
-        gameSceneLoop.Play();
+        _gameSceneLoop = GameloopBehavior.Create<GameSceneLoop>("gameSceneLoop");
+        _gameSceneLoop.Play();
     }
 }

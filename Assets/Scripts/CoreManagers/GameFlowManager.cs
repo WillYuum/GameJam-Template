@@ -1,3 +1,4 @@
+using System;
 using UnityCustomUtils.SceneManagerUtils;
 using UnityEngine;
 using Utils.GenericSingletons;
@@ -34,13 +35,13 @@ public class GameFlowManager : MonoBehaviourSingleton<GameFlowManager>
 
         if (_currentScene != null)
         {
-            _currentScene.OnExitScene();
+            _currentScene.OnExit();
         }
 
         SceneManagerUtil.SwitchScene(sceneName, () =>
         {
             _currentScene = new T();
-            _currentScene.OnEnterScene();
+            _currentScene.OnEnter();
         });
     }
 
@@ -54,7 +55,7 @@ public class GameFlowManager : MonoBehaviourSingleton<GameFlowManager>
 
         if (_currentScene != null)
         {
-            _currentScene.OnExitScene();
+            _currentScene.OnExit();
         }
 
         SceneManagerUtil.SwitchScene(sceneName, () =>
@@ -76,7 +77,7 @@ public class GameFlowManager : MonoBehaviourSingleton<GameFlowManager>
 
         SceneManagerUtil.SwitchScene(SceneManagerUtil.GetCurrentLoadedSceneName(), () =>
         {
-            _currentScene.OnEnterScene();
+            _currentScene.OnEnter();
         });
     }
 }
@@ -84,7 +85,9 @@ public class GameFlowManager : MonoBehaviourSingleton<GameFlowManager>
 
 public abstract class GameFlowScene
 {
-    public abstract void OnEnterScene();
-    public abstract void OnExitScene();
+    public abstract void OnEnter();
+    public abstract void OnExit();
 }
+
+
 

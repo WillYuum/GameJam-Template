@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using SpawnManagerMod.Configs;
+using PrefabManager.Configs;
 using Utils.GenericSingletons;
 
-namespace SpawnManagerMod
+namespace PrefabManager
 {
 
     public class PrefabManager : MonoBehaviourSingleton<PrefabManager>
