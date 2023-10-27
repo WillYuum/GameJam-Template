@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace SpawnManagerMod.Configs
+namespace PrefabManager.Configs
 {
     [System.Serializable]
     public class PrefabConfig
@@ -15,6 +15,11 @@ namespace SpawnManagerMod.Configs
         public GameObject CreateGameObject(Vector3 position, Quaternion rotation, Transform parent)
         {
             return GameObject.Instantiate(_prefab, position, rotation, parent);
+        }
+
+        public GameObject GetPrefabConfig()
+        {
+            return _prefab;
         }
     }
 }
