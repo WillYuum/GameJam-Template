@@ -24,9 +24,25 @@ namespace GameloopCore
             return gameloop;
         }
 
+
+        void Start()
+        {
+#if UNITY_EDITOR
+            _debugToRender = new List<DebuggerHandlerData>();
+            InitDebuggerHandler(_debugToRender);
+#endif
+        }
+
         void Update()
         {
             OnLoopUpdate();
+
+#if UNITY_EDITOR
+            _debugToRender.ForEach((v) =>
+            {
+                v.action();
+            });
+#endif
         }
 
         protected override void OnPlay()
@@ -34,10 +50,10 @@ namespace GameloopCore
             print("Started gameloop " + _gameloopName);
         }
 
-        protected override void OnLoopUpdate()
-        {
 
-        }
+
+
+
 
         protected override void OnToggle(bool toActive)
         {
@@ -54,6 +70,20 @@ namespace GameloopCore
         {
             print("Restarted gameloop " + _gameloopName);
         }
+
+#if UNITY_EDITOR
+        private List<DebuggerHandlerData> _debugToRender = new List<DebuggerHandlerData>();
+        protected virtual void InitDebuggerHandler(List<DebuggerHandlerData> data)
+        {
+
+        }
+
+
+        public struct DebuggerHandlerData
+        {
+            public System.Action action;
+        }
+#endif
     }
 
 
